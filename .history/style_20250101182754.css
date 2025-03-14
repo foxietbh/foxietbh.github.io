@@ -1,0 +1,178 @@
+        head {margin: 0;}
+        
+        body {
+            margin: 0;
+            font-family: 'Verdana', sans-serif;
+            background-image: url(src/matrix.gif);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 160px;
+            position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+            z-index: 1; /* Stay on top layer */
+            top: 0;
+            left: 0;
+            background-color: #2d2d2d;
+            overflow-x: hidden; /* Disable horizontal scroll */
+            padding-top: 50px;
+        }
+
+        .sidebar section {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #919191;
+            display: block;
+        }
+
+        .sidebar section:hover:not(.active) {
+            background-color: #553a33;
+            color: white;
+        }
+
+        .sidebar section.active {
+            background-color: #553a33;
+            color: white;
+        }
+
+        .main {
+            margin-top: 50px; /* Add a top margin to avoid content overlay */
+            margin-left: 160px; /* Same as the width of the sidebar */
+            padding: 0px 10px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidebar {padding-top: 15px;}
+            .sidebar section {font-size: 18px;}
+        }
+
+        .topbar {
+            top: 0;
+            width: 100%;
+            background-color: #2d2d2d;
+            position: fixed;
+            height: 50px;
+            overflow: auto;
+        }
+
+        .topbar a {
+            display: block;
+            color: #919191;
+            padding: 4px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        #ein-jumping-gif {
+            position: absolute;
+            right: 0;
+            top: 50;
+            width: 25%;
+            height: 40%;
+        }
+
+        #headphone-cat {
+            width: 20%;
+            height: 30%;
+        }
+
+        .box {
+            width:292px;
+            background:#C0C0C0;
+            border-width:1px;
+            border-color:#FFFFFF #808080 #808080 #FFFFFF;
+            border-style:solid;
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+            padding:1px;
+        }
+
+        *{
+            padding:0px;
+            margin:0px;
+          }
+        
+        button:focus{
+            outline:none;
+          }
+
+        .box{
+            width:292px;
+            background:#C0C0C0;
+            border-width:1px;
+            border-color:#FFFFFF #808080 #808080 #FFFFFF;
+            border-style:solid;
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+            padding:1px;
+          }
+          
+          div.title{
+            height:18px;
+            width:100%;
+            background:#000080;
+            color:#FFF;
+          }
+
+          img.title{
+            float:left;
+          }
+
+          p.title{
+            margin:2px 0 0 1px;
+            float:left;
+            font-family:Tahoma;
+            font-weight:bold;
+            font-size:11px;
+          }
+
+          .title button{
+            margin:2px 2px 2px 0;
+            float:right;
+            width:14px;
+            height:13.5px;
+            background:#C0C0C0;
+            border-width:1px;
+            border-color:#FFFFFF #808080 #808080 #FFFFFF;
+            padding:0;
+            font-size:9px;
+            font-weight:bold;
+            font-family:Tahoma;
+            text-align:center;
+          }
+
+          div.body{
+            padding:13px 12px 12px;
+            height:100%;
+            width:calc(100% - 26px);
+            display:inline-block;
+          }
+
+          div.body p{
+            font-family:"MS Sans Serif";
+            font-size:11px;
+          }
+
+          div.body button{
+            font-family:"MS Sans Serif";
+            font-size:11px;
+            outline:1px solid #000000;
+            background:#C0C0C0;
+            border-width:1px;
+            border-style:solid;
+            border-color:#FFFFFF #808080 #808080 #FFFFFF;
+            padding:4px 10px;
+            margin:20px auto 3px;
+            display:block;
+            position:relative;
+            bottom:0px;
+          }
