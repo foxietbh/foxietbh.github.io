@@ -29,9 +29,7 @@ function dragElement(elmnt) {
         pos4 = e.clientY;
         
         // Define boundaries
-        const sidebarWidth = 160;
         const topbarHeight = 50;
-        const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
         
         // Calculate new position
@@ -39,13 +37,10 @@ function dragElement(elmnt) {
         let newTop = elmnt.offsetTop - pos2;
         
         // Apply boundary constraints
-        const minLeft = sidebarWidth;
-        const maxLeft = viewportWidth - elmnt.offsetWidth;
         const minTop = topbarHeight;
         const maxTop = viewportHeight - elmnt.offsetHeight;
         
         // Clamp values within boundaries
-        newLeft = Math.max(minLeft, Math.min(newLeft, maxLeft));
         newTop = Math.max(minTop, Math.min(newTop, maxTop));
         
         // Apply new position
