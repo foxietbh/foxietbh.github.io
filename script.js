@@ -1,47 +1,58 @@
 function dragElement(elmnt) {
-    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-
-    var header = document.getElementById(elmnt.id + "header") || elmnt;
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    const header = document.getElementById(elmnt.id + "header") || elmnt;
+    
     header.onmousedown = dragMouseDown;
-
+    
     function dragMouseDown(e) {
         e.preventDefault();
         
         // Bring to front
-        elmnt.style.zIndex = 1000; 
+        elmnt.style.zIndex = 1000;
         
+        // Store initial mouse position
         pos3 = e.clientX;
         pos4 = e.clientY;
+        
+        // Attach event listeners
         document.onmouseup = closeDragElement;
         document.onmousemove = elementDrag;
     }
-
+    
     function elementDrag(e) {
         e.preventDefault();
-
+        
+        // Calculate mouse movement
         pos1 = pos3 - e.clientX;
         pos2 = pos4 - e.clientY;
         pos3 = e.clientX;
         pos4 = e.clientY;
-
-        const parentWidth = window.innerWidth;
-        const parentHeight = window.innerHeight;
-        const sidebarWidth = 160; 
-        const topbarHeight = 50;  
-
-        let newTop = elmnt.offsetTop - pos2;
+        
+        // Define boundaries
+        const sidebarWidth = 160;
+        const topbarHeight = 50;
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        
+        // Calculate new position
         let newLeft = elmnt.offsetLeft - pos1;
-
-        const maxTop = parentHeight - elmnt.offsetHeight;
-        const maxLeft = parentWidth - elmnt.offsetWidth;
-
-        newTop = Math.max(topbarHeight, Math.min(newTop, maxTop));
-        newLeft = Math.max(sidebarWidth, Math.min(newLeft, maxLeft));
-
-        elmnt.style.top = newTop + "px";
+        let newTop = elmnt.offsetTop - pos2;
+        
+        // Apply boundary constraints
+        const minLeft = sidebarWidth;
+        const maxLeft = viewportWidth - elmnt.offsetWidth;
+        const minTop = topbarHeight;
+        const maxTop = viewportHeight - elmnt.offsetHeight;
+        
+        // Clamp values within boundaries
+        newLeft = Math.max(minLeft, Math.min(newLeft, maxLeft));
+        newTop = Math.max(minTop, Math.min(newTop, maxTop));
+        
+        // Apply new position
         elmnt.style.left = newLeft + "px";
+        elmnt.style.top = newTop + "px";
     }
-
+    
     function closeDragElement() {
         document.onmouseup = null;
         document.onmousemove = null;
@@ -49,5 +60,8 @@ function dragElement(elmnt) {
 }
 
 // Make both elements draggable
-dragElement(document.getElementById("catbox"));
-dragElement(document.getElementById("catbox2"));
+const catbox = document.getElementById("catbox");
+const catbox2 = document.getElementById("catbox2");
+
+if (catbox) dragElement(catbox);
+if (catbox2) dragElement(catbox2);
