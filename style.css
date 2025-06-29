@@ -9,36 +9,6 @@
             background-size: 100% 100%;
         }
 
-        .sidebar {
-            height: 100%;
-            width: 160px;
-            position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-            z-index: 1; /* Stay on top layer */
-            top: 0;
-            left: 0;
-            background-color: #2d2d2d;
-            overflow-x: hidden; /* Disable horizontal scroll */
-            padding-top: 50px;
-        }
-
-        .sidebar section {
-            padding: 6px 8px 6px 16px;
-            text-decoration: none;
-            font-size: 25px;
-            color: #919191;
-            display: block;
-        }
-
-        .sidebar section:hover:not(.active) {
-            background-color: #553a33;
-            color: white;
-        }
-
-        .sidebar section.active {
-            background-color: #553a33;
-            color: white;
-        }
-
         .main {
             margin-top: 50px; /* Add a top margin to avoid content overlay */
             margin-left: 160px; /* Same as the width of the sidebar */
@@ -90,7 +60,7 @@
             position:absolute;
             top:50%;
             left:50%;
-            transform: translate(-50%,-50%);
+            transform: none;
             padding:1px;
         }
 
@@ -100,7 +70,7 @@
           }
         
         button:focus{
-            outline:none;
+            outline: none;
           }
 
         .box{
