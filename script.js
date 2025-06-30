@@ -1,16 +1,37 @@
+const GlobalLateralOffset = 30;
+
 function dragElement(elmnt) {
+  // Configuration object for initial positions
+  const boxPositions = {
+    menuBox: { top: "70px", left: GlobalLateralOffset + "px" },
+    catbox2: {
+      top: "70px",
+      left: window.innerWidth - elmnt.offsetWidth - GlobalLateralOffset + "px",
+    },
+  };
+
   let pos1 = 0,
     pos2 = 0,
     pos3 = 0,
     pos4 = 0;
-  const header = document.getElementById(elmnt.id + "header") || elmnt;
+  // Fix the header ID case sensitivity issue
+  const header =
+    document.getElementById(elmnt.id + "Header") ||
+    document.getElementById(elmnt.id + "header") ||
+    elmnt;
 
   // Remove CSS transform to avoid conflicts with JS positioning
   elmnt.style.transform = "none";
 
-  // Set initial position if not already set
-  if (!elmnt.style.left) elmnt.style.left = "100px";
-  if (!elmnt.style.top) elmnt.style.top = "100px";
+  // Set initial position from configuration or use fallback
+  if (boxPositions[elmnt.id]) {
+    elmnt.style.top = boxPositions[elmnt.id].top;
+    elmnt.style.left = boxPositions[elmnt.id].left;
+  } else {
+    // Fallback for boxes not in configuration
+    if (!elmnt.style.left) elmnt.style.left = "100px";
+    if (!elmnt.style.top) elmnt.style.top = "100px";
+  }
 
   header.onmousedown = dragMouseDown;
 
