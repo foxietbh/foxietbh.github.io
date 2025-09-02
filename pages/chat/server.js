@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
   getFirestore,
   collection,
@@ -6,7 +6,7 @@ import {
   query,
   orderBy,
   onSnapshot,
-} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 // --- CONFIG ---
 const firebaseConfig = {
@@ -56,14 +56,18 @@ export function startChat() {
 
   // --- SEND MSG ---
   sendBtn.onclick = async () => {
-    const text = msgInput.ariaValueMax;
-    if (text) {
+    const text = msgInput.value;
+    if (!text) return;
+    try {
       await addDoc(collection(db, "messages"), {
         user: user,
         text: text,
         ts: Date.now(),
       });
       msgInput.value = "";
+      console.log("Message sent!");
+    } catch (err) {
+      console.error("Failed to send message:", err);
     }
   };
 }

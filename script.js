@@ -2,10 +2,14 @@ const GlobalLateralOffset = 30;
 
 boxCounter = 0;
 
+// --- Remove Element Function ---
+
 function removeElmnt(id) {
   const element = document.getElementById(id);
   element.remove();
 }
+
+// --- Drag Function ---
 
 function dragElement(elmnt) {
   // Configuration object for initial positions
@@ -98,6 +102,8 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
+
+// --- Create Socials Box ---
 
 function createLinksBox() {
   // Create the main box div
