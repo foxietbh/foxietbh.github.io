@@ -29,6 +29,8 @@ const db = getFirestore(app);
 
 // --- START ---
 export function startChat() {
+  window.startChat = startChat;
+
   // --- ELEMENTS ---
   const chatDiv = document.getElementById("chat");
   const msgInput = document.getElementById("msg");
