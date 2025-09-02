@@ -147,3 +147,20 @@ menu {
   margin-inline-end: 0px;
   padding-inline-start: 40px;
 }
+
+.clickable-text {
+  cursor: pointer;
+}
+
+.no-style-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.chat {
+  border: 1px solid #000;
+  padding: 10px;
+  height: 200px;
+  overflow-y: scroll;
+}

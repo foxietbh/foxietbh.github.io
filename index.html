@@ -14,23 +14,42 @@
       <div class="box" id="menuBox">
         <div class="title" id="menuBoxHeader">
           <p class="title">Menu</p>
-          <button>X</button>
+          <button onclick="removeElmnt('menuBox')">X</button>
           <button>?</button>
         </div>
         <div class="body">
           <menu>
-            <li><a href="/pages/thoughts/thoughts.html">Thoughts</a></li>
-            <li><a href="/pages/gallery/gallery.html">Gallery</a></li>
-            <li>Chat</li>
-            <li>Links</li>
+            <li>
+              <a href="/pages/thoughts/thoughts.html" class="no-style-link"
+                >Thoughts</a
+              >
+            </li>
+            <li>
+              <a href="/pages/gallery/gallery.html" class="no-style-link"
+                >Gallery</a
+              >
+            </li>
+            <li>
+              <span
+                class="clickable-text"
+                onclick="createChatBox()"
+                id="chatLine"
+                >Chat</span
+              >
+            </li>
+            <li>
+              <span class="clickable-text" onclick="createLinksBox()"
+                >Links & Socials</span
+              >
+            </li>
           </menu>
         </div>
       </div>
 
-      <div class="box" id="catbox2">
-        <div class="title" id="catbox2Header">
-          <p class="title">Menu</p>
-          <button>X</button>
+      <div class="box" id="catbox">
+        <div class="title" id="catboxHeader">
+          <p class="title">Me</p>
+          <button onclick="removeElmnt('catbox')">X</button>
           <button>?</button>
         </div>
         <div class="body">
@@ -44,5 +63,12 @@
     </div>
 
     <script src="./script.js"></script>
+    <script type="module">
+      import { startChat } from "../pages/chat/server.js";
+
+      document.getElementById("chatLine").addEventListener("click", () => {
+        startChat();
+      });
+    </script>
   </body>
 </html>
