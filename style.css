@@ -1,33 +1,24 @@
-head {
+/* Reset */
+* {
+  padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
 body {
-  margin: 0;
   font-family: Helvetica;
   background-image: url(src/matrix.gif);
   background-attachment: fixed;
   background-size: 100% 100%;
-}
-
-.main {
-  margin-top: 50px; /* Add a top margin to avoid content overlay */
-  margin-left: 160px; /* Same as the width of the sidebar */
-  padding: 0px 10px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidebar section {
-    font-size: 18px;
-  }
+  margin: 0;
 }
 
 .topbar {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #2d2d2d;
   height: 50px;
+  background-color: #2d2d2d;
   overflow: auto;
 }
 
@@ -35,45 +26,25 @@ body {
   display: block;
   color: #919191;
   padding: 4px;
-  text-decoration: none;
   text-align: center;
   font-size: 30px;
+  text-decoration: none;
 }
 
-#ein-jumping-gif {
-  position: absolute;
-  right: 0;
-  top: 50;
-  width: 25%;
-  height: 40%;
-}
-
-#headphone-cat {
-  width: 80%;
-}
-
-#headphone-cat2 {
-  width: 80%;
+.main {
+  margin-top: 50px;
+  margin-left: 160px;
+  padding: 0 10px;
 }
 
 .box {
   width: 292px;
   background: #c0c0c0;
-  border-width: 1px;
+  border: 1px solid;
   border-color: #ffffff #808080 #808080 #ffffff;
-  border-style: solid;
   position: absolute;
-  transform: none;
   padding: 1px;
-}
-
-* {
-  padding: 0px;
-  margin: 0px;
-}
-
-button:focus {
-  outline: none;
+  box-sizing: border-box;
 }
 
 div.title {
@@ -84,8 +55,9 @@ div.title {
   color: #fff;
 }
 
-img.title {
-  float: left;
+div.title input,
+div.title button {
+  cursor: auto;
 }
 
 p.title {
@@ -102,9 +74,8 @@ p.title {
   width: 14px;
   height: 13.5px;
   background: #c0c0c0;
-  border-width: 1px;
+  border: 1px solid;
   border-color: #ffffff #808080 #808080 #ffffff;
-  padding: 0;
   font-size: 9px;
   font-weight: bold;
   font-family: Tahoma;
@@ -113,9 +84,9 @@ p.title {
 
 div.body {
   padding: 13px 12px 12px;
-  height: 100%;
+  min-height: 50px;
   width: calc(100% - 26px);
-  display: inline-block;
+  display: block;
 }
 
 div.body p {
@@ -126,26 +97,35 @@ div.body p {
 div.body button {
   font-family: Helvetica;
   font-size: 11px;
-  outline: 1px solid #000000;
+  outline: 1px solid #000;
   background: #c0c0c0;
-  border-width: 1px;
-  border-style: solid;
+  border: 1px solid;
   border-color: #ffffff #808080 #808080 #ffffff;
   padding: 4px 10px;
   margin: 20px auto 3px;
   display: block;
-  position: relative;
-  bottom: 0px;
+  cursor: pointer;
+}
+
+div.body input {
+  font-family: Helvetica;
+  font-size: 11px;
+  outline: 1px solid #000;
+  background: #fff;
+  border: 1px solid #808080;
+  padding: 4px 6px;
+  margin: 5px 0;
+  display: block;
+  width: calc(100% - 12px);
+  box-sizing: border-box;
+  cursor: text;
 }
 
 menu {
   display: block;
   list-style-type: hiragana;
-  margin-block-start: 2px;
-  margin-block-end: 2px;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  padding-inline-start: 40px;
+  margin: 2px 0;
+  padding-left: 40px;
 }
 
 .clickable-text {
@@ -158,9 +138,37 @@ menu {
   cursor: pointer;
 }
 
-.chat {
+#loginDiv .body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#loginDiv .body button {
+  flex: 1;
+  margin: 0;
+}
+
+#loginDiv .body-buttons {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+#chat {
   border: 1px solid #000;
+  background: #acacac;
   padding: 10px;
   height: 200px;
   overflow-y: scroll;
+}
+
+#headphone-cat2 {
+  width: 80%;
+}
+
+@media screen and (max-height: 450px) {
+  .sidebar section {
+    font-size: 18px;
+  }
 }

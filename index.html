@@ -30,12 +30,7 @@
               >
             </li>
             <li>
-              <span
-                class="clickable-text"
-                onclick="createChatBox()"
-                id="chatLine"
-                >Chat</span
-              >
+              <span class="clickable-text" id="chatLine">Chat</span>
             </li>
             <li>
               <span class="clickable-text" onclick="createLinksBox()"
@@ -60,15 +55,63 @@
           />
         </div>
       </div>
+
+      <!-- LOGIN FORM -->
+      <div id="loginDiv" style="display: none" class="box">
+        <div class="title">
+          <p class="title">Login / Register</p>
+          <button onclick="closeLogin()">X</button>
+          <button>?</button>
+        </div>
+        <div class="body">
+          <input id="nickInput" placeholder="Nickname" /><br />
+          <input id="passInput" type="password" placeholder="Password" /><br />
+
+          <div class="body-buttons">
+            <button id="loginBtn">Login</button>
+            <button id="registerBtn">Register</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAT CONTAINER -->
+      <div id="chatContainer" style="display: none" class="box">
+        <div class="title">
+          <p class="title">Chat</p>
+          <button onclick="closeChat()">X</button>
+          <button>?</button>
+        </div>
+        <div class="body">
+          <div
+            id="chat"
+            style="border: 1px solid #000; height: 200px; overflow-y: scroll"
+          ></div>
+          <input id="msg" placeholder="Type a message..." />
+          <button id="send">Send</button>
+        </div>
+      </div>
     </div>
 
     <script src="./script.js"></script>
+
     <script type="module">
       import { startChat } from "../pages/chat/server.js";
 
+      // Open login when clicking "Chat"
       document.getElementById("chatLine").addEventListener("click", () => {
-        startChat();
+        document.getElementById("loginDiv").style.display = "block";
       });
+
+      // Close functions
+      window.closeLogin = () => {
+        document.getElementById("loginDiv").style.display = "none";
+      };
+      window.closeChat = () => {
+        document.getElementById("chatContainer").style.display = "none";
+      };
+
+      // Start chat module
+      startChat();
     </script>
   </body>
 </html>
