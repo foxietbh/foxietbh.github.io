@@ -392,16 +392,15 @@ input[type="range"]::-ms-thumb {
 .eq-panel {
   width: 180px;
   height: 100px;
+  position: absolute;
+  bottom: 100%; /* appears above player */
+  left: 68%;
+  transform: translateX(-50%);
   border: 2px inset #c0c0c0;
   background: #000;
-  display: none;
-  position: absolute;
-  bottom: 102%;
-  right: -94px;
-  transform: translateX(-50%);
-  z-index: 999;
-  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
   padding: 8px;
+  display: none;
+  z-index: 999;
 }
 
 .eq-panel.show {
