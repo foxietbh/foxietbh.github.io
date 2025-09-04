@@ -56,6 +56,8 @@
         </div>
       </div>
 
+      <!-- CHATBOX-->
+
       <!-- LOGIN FORM -->
       <div id="loginDiv" style="display: none" class="box">
         <div class="title">
@@ -92,8 +94,6 @@
       </div>
     </div>
 
-    <script src="./script.js"></script>
-
     <script type="module">
       import { startChat } from "../pages/chat/server.js";
 
@@ -113,5 +113,109 @@
       // Start chat module
       startChat();
     </script>
+
+    <!-- AUDIO PLAYER -->
+
+    <div id="audioPlayer">
+      <div class="header">
+        <span>Tunes</span>
+        <button
+          onclick="document.getElementById('audioPlayer').style.display='none'"
+        >
+          ×
+        </button>
+      </div>
+
+      <div class="body">
+        <div class="track-display">
+          <div class="scrolling-text" id="trackTitle">Loading...</div>
+        </div>
+
+        <div class="controls">
+          <button onclick="prevTrack()" title="Previous">⏮</button>
+          <button onclick="togglePlay()" id="playBtn" title="Play/Pause">
+            ▶
+          </button>
+          <button onclick="stopTrack()" title="Stop">⏹</button>
+          <button onclick="nextTrack()" title="Next">⏭</button>
+        </div>
+
+        <div class="slider-container">
+          <div class="slider-row">
+            <span class="slider-label">SEEK</span>
+            <input
+              type="range"
+              id="seek"
+              min="0"
+              max="100"
+              step="0.1"
+              value="0"
+            />
+          </div>
+          <div class="time-display">
+            <span id="currentTime">0:00</span>
+            <span id="totalTime">0:00</span>
+          </div>
+
+          <div class="slider-row">
+            <span class="slider-label">VOL</span>
+            <input
+              type="range"
+              id="volume"
+              min="0"
+              max="100"
+              step="1"
+              value="20"
+            />
+            <span class="volume-indicator" id="volumeDisplay">50%</span>
+          </div>
+        </div>
+
+        <div class="panel-toggles">
+          <button
+            class="panel-toggle"
+            onclick="togglePlaylist()"
+            id="playlistBtn"
+          >
+            UP NEXT
+          </button>
+          <button
+            class="panel-toggle"
+            onclick="toggleEqualizer()"
+            id="equalizerBtn"
+          >
+            EQ
+          </button>
+        </div>
+      </div>
+
+      <!-- Playlist Panel (opens to the left) -->
+      <div class="playlist" id="playlist">
+        <!-- Playlist items will be populated by JavaScript -->
+      </div>
+
+      <!-- Equalizer Panel (opens to the right) -->
+      <div class="eq-panel" id="eqPanel">
+        <div class="eq-bars" id="equalizer">
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+          <div class="eq-bar"></div>
+        </div>
+      </div>
+    </div>
+
+    <audio id="audio"></audio>
+
+    <script src="./pages/player/player.js"></script>
+    <script src="./script.js"></script>
   </body>
 </html>
