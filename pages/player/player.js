@@ -545,15 +545,7 @@ function formatTime(seconds) {
 function updateVolumeDisplay() {
   const vol = Math.round(volume.value);
   volumeDisplay.textContent = vol + "%";
-
-  // Change color based on volume level
-  if (vol === 0) {
-    volumeDisplay.style.color = "#ff0000";
-  } else if (vol < 30) {
-    volumeDisplay.style.color = "#ffaa00";
-  } else {
-    volumeDisplay.style.color = "#000000";
-  }
+  volumeDisplay.style.color = "#000000"; // always black
 }
 
 // Equalizer Animation
