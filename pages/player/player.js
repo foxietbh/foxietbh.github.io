@@ -10,7 +10,6 @@ const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
 const volumeDisplay = document.getElementById("volumeDisplay");
 const playlist = document.getElementById("playlist");
-const shuffleBtn = document.getElementById("shuffleBtn");
 const repeatBtn = document.getElementById("repeatBtn");
 const eqBars = document.querySelectorAll(".eq-bar");
 
@@ -343,20 +342,34 @@ const tracks = [
 ];
 
 // Player State
-let currentTrack = Math.floor(Math.random() * tracks.length);
+let currentTrack = 0;
 let isPlaying = false;
-let shuffle = false;
 let repeat = false;
 let equalizerInterval;
 
 // Initialize Player
 function init() {
+  shuffleTracks();
   populatePlaylist();
   loadTrack(currentTrack);
   audio.volume = volume.value / 100;
   updateVolumeDisplay();
   startEqualizer();
-  setupKeyboardControls();
+}
+
+// Fisher-Yates Shuffle
+function shuffleTracks() {
+  let currentIndex = tracks.length;
+
+  while (currentIndex != 0) {
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    [tracks[currentIndex], tracks[randomIndex]] = [
+      tracks[randomIndex],
+      tracks[currentIndex],
+    ];
+  }
 }
 
 // Populate Playlist
@@ -441,15 +454,7 @@ function stopTrack() {
 
 // Next Track
 function nextTrack() {
-  if (shuffle) {
-    let nextIndex;
-    do {
-      nextIndex = Math.floor(Math.random() * tracks.length);
-    } while (nextIndex === currentTrack && tracks.length > 1);
-    currentTrack = nextIndex;
-  } else {
-    currentTrack = (currentTrack + 1) % tracks.length;
-  }
+  currentTrack = (currentTrack + 1) % tracks.length;
   playTrack(currentTrack);
 }
 
@@ -463,18 +468,6 @@ function prevTrack() {
 
   currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
   playTrack(currentTrack);
-}
-
-// Toggle Shuffle
-function toggleShuffle() {
-  shuffle = !shuffle;
-  shuffleBtn.classList.toggle("active", shuffle);
-
-  // Visual feedback
-  shuffleBtn.style.transform = "scale(0.95)";
-  setTimeout(() => {
-    shuffleBtn.style.transform = "scale(1)";
-  }, 100);
 }
 
 // Toggle Repeat
@@ -504,7 +497,7 @@ function togglePlaylist() {
   }
 }
 
-// Toggle Equalizer Visibility - THIS WAS MISSING!
+// Toggle Equalizer Visibility
 function toggleEqualizer() {
   const eqPanel = document.getElementById("eqPanel");
   const eqBtn = document.getElementById("equalizerBtn");
@@ -571,51 +564,6 @@ function startEqualizer() {
       });
     }
   }, 150);
-}
-
-// Keyboard Controls
-function setupKeyboardControls() {
-  document.addEventListener("keydown", (e) => {
-    // Prevent default only for our specific keys
-    switch (e.code) {
-      case "Space":
-        e.preventDefault();
-        togglePlay();
-        break;
-      case "ArrowRight":
-        if (e.ctrlKey) {
-          e.preventDefault();
-          nextTrack();
-        } else {
-          // Seek forward 5 seconds
-          if (audio.duration) {
-            audio.currentTime = Math.min(audio.currentTime + 5, audio.duration);
-          }
-        }
-        break;
-      case "ArrowLeft":
-        if (e.ctrlKey) {
-          e.preventDefault();
-          prevTrack();
-        } else {
-          // Seek backward 5 seconds
-          audio.currentTime = Math.max(audio.currentTime - 5, 0);
-        }
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        volume.value = Math.min(parseFloat(volume.value) + 5, 100);
-        audio.volume = volume.value / 100;
-        updateVolumeDisplay();
-        break;
-      case "ArrowDown":
-        e.preventDefault();
-        volume.value = Math.max(parseFloat(volume.value) - 5, 0);
-        audio.volume = volume.value / 100;
-        updateVolumeDisplay();
-        break;
-    }
-  });
 }
 
 // Event Listeners
