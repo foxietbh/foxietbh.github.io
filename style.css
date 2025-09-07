@@ -1,4 +1,4 @@
-/* Reset */
+/* --- RESET --- */
 * {
   padding: 0;
   margin: 0;
@@ -13,6 +13,7 @@ body {
   margin: 0;
 }
 
+/* --- TOPBAR --- */
 .topbar {
   position: fixed;
   top: 0;
@@ -31,96 +32,96 @@ body {
   text-decoration: none;
 }
 
+/* --- MAIN CONTENT --- */
 .main {
   margin-top: 50px;
   margin-left: 160px;
   padding: 0 10px;
 }
 
+/* --- UNIFIED BOX STYLE --- */
 .box {
   width: 292px;
   background: #c0c0c0;
-  border: 1px solid;
-  border-color: #ffffff #808080 #808080 #ffffff;
+  border: 3px outset #c0c0c0;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
   position: absolute;
   padding: 1px;
-  box-sizing: border-box;
+  font-family: "MS Sans Serif", Tahoma, sans-serif;
+  color: #000;
 }
 
-div.title {
+/* HEADER / TITLE BAR */
+.box .title {
   cursor: move;
   height: 18px;
   width: 100%;
-  background: #000080;
+  background: linear-gradient(to bottom, #000080, #0000cc);
   color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5px;
+  font-weight: bold;
+  font-size: 11px;
+  border-bottom: 1px solid #808080;
 }
 
-div.title input,
-div.title button {
-  cursor: auto;
-}
-
-p.title {
-  margin: 2px 0 0 1px;
-  float: left;
+.box .title p.title {
+  margin: 0;
   font-family: Tahoma;
   font-weight: bold;
   font-size: 11px;
 }
 
-.title button {
-  margin: 2px 2px 2px 0;
-  float: right;
+.box .title button {
+  margin: 0;
   width: 14px;
-  height: 13.5px;
+  height: 14px;
   background: #c0c0c0;
-  border: 1px solid;
-  border-color: #ffffff #808080 #808080 #ffffff;
+  border: 1px outset #c0c0c0;
   font-size: 9px;
   font-weight: bold;
-  font-family: Tahoma;
-  text-align: center;
-}
-
-div.body {
-  padding: 13px 12px 12px;
-  min-height: 50px;
-  width: calc(100% - 26px);
-  display: block;
-}
-
-div.body p {
-  font-family: Helvetica;
-  font-size: 11px;
-}
-
-div.body button {
-  font-family: Helvetica;
-  font-size: 11px;
-  outline: 1px solid #000;
-  background: #c0c0c0;
-  border: 1px solid;
-  border-color: #ffffff #808080 #808080 #ffffff;
-  padding: 4px 10px;
-  margin: 20px auto 3px;
-  display: block;
   cursor: pointer;
+  color: #000;
 }
 
-div.body input {
-  font-family: Helvetica;
+/* BODY */
+.box .body {
+  background: #c0c0c0;
+  padding: 8px;
+  min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* BUTTONS */
+.box .body button {
+  background: linear-gradient(to bottom, #e0e0e0, #c0c0c0);
+  border: 2px outset #c0c0c0;
+  padding: 4px 10px;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* INPUTS */
+.box .body input {
+  font-family: "MS Sans Serif", Tahoma, sans-serif;
   font-size: 11px;
   outline: 1px solid #000;
   background: #fff;
   border: 1px solid #808080;
   padding: 4px 6px;
-  margin: 5px 0;
-  display: block;
   width: calc(100% - 12px);
   box-sizing: border-box;
   cursor: text;
 }
 
+/* MENU & LINKS */
 menu {
   display: block;
   list-style-type: hiragana;
@@ -128,50 +129,42 @@ menu {
   padding-left: 40px;
 }
 
-.clickable-text {
-  cursor: pointer;
-}
-
+.clickable-text,
 .no-style-link {
+  cursor: pointer;
   text-decoration: none;
   color: inherit;
-  cursor: pointer;
 }
 
-#loginDiv .body {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  z-index: 4;
-}
-
-#loginDiv .body button {
-  flex: 1;
-  margin: 0;
-}
-
-#loginDiv .body-buttons {
-  display: flex;
-  gap: 5px;
-  margin-top: 5px;
-}
-
+/* CHAT AREA */
 #chat {
-  border: 1px solid #000;
-  background: #acacac;
-  padding: 10px;
+  border: 3px outset #c0c0c0;
+  background: #c0c0c0;
+  padding: 8px;
   height: 200px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
-#headphone-cat2 {
-  width: 80%;
+/* CUSTOM SCROLLBARS */
+#chat::-webkit-scrollbar,
+.playlist::-webkit-scrollbar,
+.eq-panel::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
 }
 
-@media screen and (max-height: 450px) {
-  .sidebar section {
-    font-size: 18px;
-  }
+#chat::-webkit-scrollbar-track,
+.playlist::-webkit-scrollbar-track,
+.eq-panel::-webkit-scrollbar-track {
+  background: #c0c0c0;
+  border: 1px inset #c0c0c0;
+}
+
+#chat::-webkit-scrollbar-thumb,
+.playlist::-webkit-scrollbar-thumb,
+.eq-panel::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #e0e0e0, #c0c0c0);
+  border: 2px outset #c0c0c0;
 }
 
 /* --- AUDIO PLAYER --- */
