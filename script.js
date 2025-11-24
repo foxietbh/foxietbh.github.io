@@ -131,7 +131,7 @@ function createLinksBox() {
 
   dragElement(newBox);
 
-  flipStatus(linkBoxActive);
+  flipStatus("links");
 
   console.log("Created new Links/Socials box with ID:", newBox.id);
 }
@@ -176,14 +176,14 @@ function createThoughtsBox() {
 
   dragElement(newBox);
 
-  flipStatus(thoughtsBoxActive);
+  flipStatus("thoughts");
 
   console.log("Created new Thoughts box with ID:", newBox.id);
 }
 
 // ------------------ CREATE GALLERY BOX ------------------
 
-function createThoughtsBox() {
+function createGalleryBox() {
   const mainContainer = document.querySelector(".main");
   const newBox = document.createElement("div");
   newBox.className = "box";
@@ -221,7 +221,7 @@ function createThoughtsBox() {
 
   dragElement(newBox);
 
-  flipStatus(galleryBoxActive);
+  flipStatus("gallery");
 
   console.log("Created new Gallery box with ID:", newBox.id);
 }
@@ -237,19 +237,32 @@ export function removeElmnt(id) {
 
 export function getActiveStatus(boxString) {
   switch(boxString) {
-    case "chat": return chatBoxActive;
-    case "links": return linkBoxActive;
-    case "gallery": return galleryBoxActive;
-    case "thoughts": return thoughtsBoxActive;
+    case "chat": 
+      return chatBoxActive;
+    case "links": 
+      return linkBoxActive;
+    case "gallery": 
+      return galleryBoxActive;
+    case "thoughts":
+      return thoughtsBoxActive;
+      default: return false;
   }
 }
 
 export function flipStatus(boxString) {
   switch(boxString) {
-    case "chat": chatBoxActive = !chatBoxActive;
-    case "links": linkBoxActive = !linkBoxActive;
-    case "gallery": galleryBoxActive = !galleryBoxActive;
-    case "thoughts": thoughtsBoxActive = !thoughtsBoxActive;
+    case "chat":
+      chatBoxActive = !chatBoxActive;
+      break;
+    case "links":
+      linkBoxActive = !linkBoxActive;
+      break;
+    case "gallery":
+      galleryBoxActive = !galleryBoxActive;
+      break;
+    case "thoughts":
+      thoughtsBoxActive = !thoughtsBoxActive;
+      break;
   }
 }
 
