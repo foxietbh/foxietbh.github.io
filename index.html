@@ -20,22 +20,16 @@
         <div class="body">
           <menu>
             <li>
-              <span class="clickable-text" onclick="createThoughtsBox()"
-                >Thoughts</span
-              >
+              <span class="clickable-text" id="thoughtsBtn">Thoughts</span>
             </li>
             <li>
-              <span class="clickable-text" onclick="createGalleryBox()"
-                >Thoughts</span
-              >
+              <span class="clickable-text" id="galleryBtn">Gallery</span>
             </li>
             <li>
-              <span class="clickable-text" id="chatLine">Chat</span>
+              <span class="clickable-text" id="chatBtn">Chat</span>
             </li>
             <li>
-              <span class="clickable-text" onclick="createLinksBox()"
-                >Links & Socials</span
-              >
+              <span class="clickable-text" id="linksBtn">Links & Socials</span>
             </li>
           </menu>
         </div>
@@ -43,7 +37,7 @@
 
       <div class="box" id="catbox">
         <div class="title" id="catboxHeader">
-          <p class="title">Me</p>
+          <p class="title">About</p>
           <button onclick="removeElmnt('catbox')">X</button>
           <button>?</button>
         </div>
@@ -98,7 +92,7 @@
       import { startChat } from "../pages/chat/server.js";
 
       // Open login when clicking "Chat"
-      document.getElementById("chatLine").addEventListener("click", () => {
+      document.getElementById("chatBtn").addEventListener("click", () => {
         document.getElementById("loginDiv").style.display = "block";
       });
 
@@ -216,6 +210,6 @@
     <audio id="audio"></audio>
 
     <script src="./pages/player/player.js"></script>
-    <script src="./script.js"></script>
+    <script type="module" src="./script.js"></script>
   </body>
 </html>

@@ -5,9 +5,21 @@ let linkBoxActive = false;
 let galleryBoxActive = false;
 let thoughtsBoxActive = false;
 
+// ------------------ MOBILE DETECTION ------------------
+
+function isMobile() {
+  return window.innerWidth <= 768 || 
+         /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 // ------------------ DRAG FUNCTION ------------------
 
 function dragElement(elmnt) {
+  // Skip dragging on mobile
+  if (isMobile()) {
+    return;
+  }
+
   const boxPositions = {
     menuBox: { top: "70px", left: GlobalLateralOffset + "px" },
     catbox: {
@@ -88,6 +100,12 @@ function dragElement(elmnt) {
 // ------------------ CREATE LINKS BOX ------------------
 
 function createLinksBox() {
+  // Check if already active
+  if (linkBoxActive) {
+    console.log("Links box already open");
+    return;
+  }
+
   const mainContainer = document.querySelector(".main");
   const newBox = document.createElement("div");
   newBox.className = "box";
@@ -104,7 +122,10 @@ function createLinksBox() {
 
   const closeBtn = document.createElement("button");
   closeBtn.textContent = "X";
-  closeBtn.onclick = () => newBox.remove();
+  closeBtn.onclick = () => {
+    newBox.remove();
+    linkBoxActive = false;
+  };
 
   const helpBtn = document.createElement("button");
   helpBtn.textContent = "?";
@@ -119,7 +140,7 @@ function createLinksBox() {
   socialsList.innerHTML = `
     <li><a href="https://www.instagram.com/goncalosfckd/" target="_blank">Instagram</a></li>
     <li><a href="https://open.spotify.com/user/fw1nt9sath3nhor0ijsodvgqu?si=4e1295e0d6ae4276" target="_blank">Spotify</a></li>
-    <li><a href="https://letterboxd.com/goncalotbh/">Letterboxd</a></li>
+    <li><a href="https://letterboxd.com/goncalotbh/" target="_blank">Letterboxd</a></li>
     <li><a href="https://steamcommunity.com/id/111connected/" target="_blank">Steam</a></li>
     <li><a href="https://pt.pinterest.com/goncalotbh/" target="_blank">Pinterest</a></li>
   `;
@@ -131,7 +152,7 @@ function createLinksBox() {
 
   dragElement(newBox);
 
-  flipStatus("links");
+  linkBoxActive = true;
 
   console.log("Created new Links/Socials box with ID:", newBox.id);
 }
@@ -139,6 +160,12 @@ function createLinksBox() {
 // ------------------ CREATE THOUGHTS BOX ------------------
 
 function createThoughtsBox() {
+  // Check if already active
+  if (thoughtsBoxActive) {
+    console.log("Thoughts box already open");
+    return;
+  }
+
   const mainContainer = document.querySelector(".main");
   const newBox = document.createElement("div");
   newBox.className = "box";
@@ -155,7 +182,10 @@ function createThoughtsBox() {
 
   const closeBtn = document.createElement("button");
   closeBtn.textContent = "X";
-  closeBtn.onclick = () => newBox.remove();
+  closeBtn.onclick = () => {
+    newBox.remove();
+    thoughtsBoxActive = false;
+  };
 
   const helpBtn = document.createElement("button");
   helpBtn.textContent = "?";
@@ -176,7 +206,7 @@ function createThoughtsBox() {
 
   dragElement(newBox);
 
-  flipStatus("thoughts");
+  thoughtsBoxActive = true;
 
   console.log("Created new Thoughts box with ID:", newBox.id);
 }
@@ -184,6 +214,12 @@ function createThoughtsBox() {
 // ------------------ CREATE GALLERY BOX ------------------
 
 function createGalleryBox() {
+  // Check if already active
+  if (galleryBoxActive) {
+    console.log("Gallery box already open");
+    return;
+  }
+
   const mainContainer = document.querySelector(".main");
   const newBox = document.createElement("div");
   newBox.className = "box";
@@ -200,7 +236,10 @@ function createGalleryBox() {
 
   const closeBtn = document.createElement("button");
   closeBtn.textContent = "X";
-  closeBtn.onclick = () => newBox.remove();
+  closeBtn.onclick = () => {
+    newBox.remove();
+    galleryBoxActive = false;
+  };
 
   const helpBtn = document.createElement("button");
   helpBtn.textContent = "?";
@@ -221,51 +260,38 @@ function createGalleryBox() {
 
   dragElement(newBox);
 
-  flipStatus("gallery");
+  galleryBoxActive = true;
 
   console.log("Created new Gallery box with ID:", newBox.id);
 }
 
 // ------------------ REMOVE ELEMENT ------------------
 
-export function removeElmnt(id) {
+function removeElmnt(id) {
   const element = document.getElementById(id);
   if (element) element.remove();
 }
 
-// ------------------ Box Status ----------------------
+// Make removeElmnt available globally for onclick attributes
+window.removeElmnt = removeElmnt;
 
-export function getActiveStatus(boxString) {
-  switch(boxString) {
-    case "chat": 
-      return chatBoxActive;
-    case "links": 
-      return linkBoxActive;
-    case "gallery": 
-      return galleryBoxActive;
-    case "thoughts":
-      return thoughtsBoxActive;
-      default: return false;
-  }
-}
+// ------------------ LISTENERS ------------------
 
-export function flipStatus(boxString) {
-  switch(boxString) {
-    case "chat":
-      chatBoxActive = !chatBoxActive;
-      break;
-    case "links":
-      linkBoxActive = !linkBoxActive;
-      break;
-    case "gallery":
-      galleryBoxActive = !galleryBoxActive;
-      break;
-    case "thoughts":
-      thoughtsBoxActive = !thoughtsBoxActive;
-      break;
-  }
-}
+document.getElementById('thoughtsBtn').addEventListener('click', createThoughtsBox);
+document.getElementById('galleryBtn').addEventListener('click', createGalleryBox);
+document.getElementById('linksBtn').addEventListener('click', createLinksBox);
 
 // ------------------ INITIALIZE DRAG ON EXISTING BOXES ------------------
 
 document.querySelectorAll(".box").forEach(dragElement);
+
+// ------------------ RE-INITIALIZE ON RESIZE ------------------
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    // Re-check if we switched to/from mobile
+    document.querySelectorAll(".box").forEach(dragElement);
+  }, 250);
+});
