@@ -432,7 +432,7 @@ input[type="range"]::-ms-thumb {
     flex-direction: column;
     align-items: center;
     gap: 12px;
-    padding: 12px 0 180px; /* bottom padding makes room for fixed audio player */
+    padding: 12px 0 60px; /* bottom padding makes room for slim taskbar player */
   }
 
   /* Override absolute positioning so boxes flow in the column */
@@ -463,34 +463,84 @@ input[type="range"]::-ms-thumb {
     font-size: 12px;
   }
 
-  /* Audio player: fixed bottom-right, slightly inset */
+  /* Audio player: slim taskbar spanning full bottom width */
   #audioPlayer {
-    width: calc(100% - 48px);
-    max-width: 300px;
-    right: 24px;
-    bottom: 10px;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: none;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-top: 2px outset #c0c0c0;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.4);
   }
 
-  /* Playlist opens above the player (already absolute), cap height */
-  .playlist {
-    max-height: 40vh;
-    width: 180px;
-    left: -185px;
+  #audioPlayer .header {
+    display: none;
   }
 
-  .eq-panel {
-    max-height: 50vh;
+  /* Body becomes a single row: track title + controls */
+  #audioPlayer .body {
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    padding: 3px 6px;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  /* Track display fills remaining space, text truncates */
+  #audioPlayer .track-display {
+    flex: 1;
+    min-width: 0;
+    min-height: unset;
+    height: 26px;
+    font-size: 10px;
+  }
+
+  #audioPlayer .track-display .scrolling-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Compact controls, no margin */
+  #audioPlayer .controls {
+    flex-shrink: 0;
+    margin: 0;
+    gap: 2px;
+  }
+
+  #audioPlayer .controls button {
+    min-width: 24px;
+    height: 24px;
+    padding: 0;
+    font-size: 11px;
+  }
+
+  /* Stop button not needed in taskbar mode */
+  #audioPlayer .controls button[title="Stop"] {
+    display: none;
+  }
+
+  /* Hide everything else */
+  #audioPlayer .slider-container,
+  #audioPlayer .panel-toggles,
+  #audioPlayer .playlist,
+  #audioPlayer .eq-panel {
+    display: none !important;
   }
 }
 
-/* Small phones */
+/* Small phones — no player changes needed, taskbar is already full width */
 @media screen and (max-width: 480px) {
   .box {
     width: calc(100% - 32px);
-  }
-
-  #audioPlayer {
-    width: calc(100% - 32px);
-    right: 16px;
   }
 }
