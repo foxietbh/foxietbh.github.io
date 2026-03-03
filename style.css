@@ -425,15 +425,30 @@ input[type="range"]::-ms-thumb {
 
 @media screen and (max-width: 768px) {
 
-  /* Slightly reduce default window width */
+  /* Centered flex column — boxes float on the background with space on both sides */
+  .main {
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0 180px; /* bottom padding makes room for fixed audio player */
+  }
+
+  /* Override absolute positioning so boxes flow in the column */
   .box {
-    width: 260px;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: calc(100% - 48px);
+    max-width: 300px;
   }
 
   /* Improve tapping without breaking Y2K look */
   .box .title {
     height: 22px;
-    font-size: 11px;
+    cursor: default;
   }
 
   /* Inputs slightly larger for phones */
@@ -448,14 +463,21 @@ input[type="range"]::-ms-thumb {
     font-size: 12px;
   }
 
-  /* Make the audio player slightly wider and centered */
+  /* Audio player: fixed bottom-right, slightly inset */
   #audioPlayer {
-    width: 300px;
-    right: 10px;
+    width: calc(100% - 48px);
+    max-width: 300px;
+    right: 24px;
     bottom: 10px;
   }
 
-  .playlist,
+  /* Playlist opens above the player (already absolute), cap height */
+  .playlist {
+    max-height: 40vh;
+    width: 180px;
+    left: -185px;
+  }
+
   .eq-panel {
     max-height: 50vh;
   }
@@ -464,10 +486,11 @@ input[type="range"]::-ms-thumb {
 /* Small phones */
 @media screen and (max-width: 480px) {
   .box {
-    width: 230px;
+    width: calc(100% - 32px);
   }
 
   #audioPlayer {
-    width: 260px;
+    width: calc(100% - 32px);
+    right: 16px;
   }
 }
