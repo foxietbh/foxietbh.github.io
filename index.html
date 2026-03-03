@@ -78,10 +78,7 @@
           <button>?</button>
         </div>
         <div class="body">
-          <div
-            id="chat"
-            style="border: 1px solid #000; height: 200px; overflow-y: scroll"
-          ></div>
+          <div id="chat"></div>
           <input id="msg" placeholder="Type a message..." />
           <button id="send">Send</button>
         </div>
@@ -89,7 +86,7 @@
     </div>
 
     <script type="module">
-      import { startChat } from "../pages/chat/server.js";
+      import { startChat } from "./pages/chat/server.js";
 
       // Open login when clicking "Chat"
       document.getElementById("chatBtn").addEventListener("click", () => {
@@ -207,7 +204,7 @@
       </div>
     </div>
 
-    <audio id="audio"></audio>
+    <audio id="audio" crossorigin="anonymous"></audio>
 
     <script src="./pages/player/player.js"></script>
     <script type="module" src="./script.js"></script>

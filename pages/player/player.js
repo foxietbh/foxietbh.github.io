@@ -10,7 +10,6 @@ const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
 const volumeDisplay = document.getElementById("volumeDisplay");
 const playlist = document.getElementById("playlist");
-const repeatBtn = document.getElementById("repeatBtn");
 const eqBars = document.querySelectorAll(".eq-bar");
 
 // Sample tracks - Replace with your actual playlist
@@ -344,8 +343,6 @@ const tracks = [
 // Player State
 let currentTrack = 0;
 let isPlaying = false;
-let repeat = false;
-let equalizerInterval;
 
 // Initialize Player
 function init() {
@@ -354,7 +351,6 @@ function init() {
   loadTrack(currentTrack);
   audio.volume = volume.value / 100;
   updateVolumeDisplay();
-  startEqualizer();
 }
 
 // Fisher-Yates Shuffle
@@ -470,18 +466,6 @@ function prevTrack() {
   playTrack(currentTrack);
 }
 
-// Toggle Repeat
-function toggleRepeat() {
-  repeat = !repeat;
-  repeatBtn.classList.toggle("active", repeat);
-
-  // Visual feedback
-  repeatBtn.style.transform = "scale(0.95)";
-  setTimeout(() => {
-    repeatBtn.style.transform = "scale(1)";
-  }, 100);
-}
-
 // Toggle Playlist Visibility
 function togglePlaylist() {
   const playlistEl = document.getElementById("playlist");
@@ -538,32 +522,6 @@ function formatTime(seconds) {
 function updateVolumeDisplay() {
   const vol = Math.round(volume.value);
   volumeDisplay.textContent = vol + "%";
-  volumeDisplay.style.color = "#000000"; // always black
-}
-
-// Equalizer Animation
-function startEqualizer() {
-  if (equalizerInterval) {
-    clearInterval(equalizerInterval);
-  }
-
-  equalizerInterval = setInterval(() => {
-    if (isPlaying && !audio.paused) {
-      eqBars.forEach((bar) => {
-        const height = Math.random() * 25 + 5;
-        bar.style.height = height + "px";
-
-        // Add slight color variation
-        const greenIntensity = Math.floor(Math.random() * 100 + 155);
-        bar.style.backgroundColor = `rgb(0, ${greenIntensity}, 0)`;
-      });
-    } else {
-      eqBars.forEach((bar) => {
-        bar.style.height = "2px";
-        bar.style.backgroundColor = "#00ff00";
-      });
-    }
-  }, 150);
 }
 
 // Event Listeners
@@ -590,14 +548,7 @@ volume.oninput = () => {
 };
 
 // Handle track ending
-audio.addEventListener("ended", () => {
-  if (repeat) {
-    audio.currentTime = 0;
-    audio.play();
-  } else {
-    nextTrack();
-  }
-});
+audio.addEventListener("ended", nextTrack);
 
 // Handle audio loading errors
 audio.addEventListener("error", (e) => {
@@ -637,47 +588,35 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 });
 
-// Cleanup on page unload
-window.addEventListener("beforeunload", () => {
-  if (equalizerInterval) {
-    clearInterval(equalizerInterval);
-  }
-});
-
-// Setup Web Audio API
-const audioElement = document.getElementById("audio");
+// Web Audio API — real-time EQ
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-const source = audioCtx.createMediaElementSource(audioElement);
+const source = audioCtx.createMediaElementSource(audio);
 const analyser = audioCtx.createAnalyser();
-analyser.fftSize = 256; // more/less bars depending on resolution
-const bufferLength = analyser.frequencyBinCount;
-const dataArray = new Uint8Array(bufferLength);
+analyser.fftSize = 256;
+const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-// Connect nodes
 source.connect(analyser);
 analyser.connect(audioCtx.destination);
 
 function animateEQ() {
   requestAnimationFrame(animateEQ);
-
   analyser.getByteFrequencyData(dataArray);
-
-  // Map analyser bins to your 12 bars
-  const step = Math.floor(bufferLength / eqBars.length);
+  const step = Math.floor(dataArray.length / eqBars.length);
   eqBars.forEach((bar, i) => {
     let sum = 0;
-    for (let j = 0; j < step; j++) {
-      sum += dataArray[i * step + j];
-    }
-    const avg = sum / step;
-    bar.style.height = `${(avg / 255) * 100}px`;
+    for (let j = 0; j < step; j++) sum += dataArray[i * step + j];
+    bar.style.height = `${((sum / step) / 255) * 100}px`;
   });
 }
 
-// Start animation after user interaction
-audioElement.addEventListener("play", () => {
+let eqStarted = false;
+audio.addEventListener("play", () => {
   audioCtx.resume();
-  animateEQ();
+  if (!eqStarted) { eqStarted = true; animateEQ(); }
+});
+
+audio.addEventListener("pause", () => {
+  eqBars.forEach((bar) => { bar.style.height = "2px"; });
 });
 
 // Export functions for global access (if needed)

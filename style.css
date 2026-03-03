@@ -309,13 +309,6 @@ input[type="range"]::-moz-range-thumb {
   cursor: pointer;
 }
 
-input[type="range"]::-ms-thumb {
-  width: 14px;
-  height: 14px;
-  background: linear-gradient(to bottom, #e0e0e0, #c0c0c0);
-  border: 2px outset #c0c0c0;
-  cursor: pointer;
-}
 
 /* Volume Indicator */
 .volume-indicator {
