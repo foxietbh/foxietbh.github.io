@@ -148,6 +148,7 @@ function createLinksBox() {
   mainContainer.appendChild(newBox);
 
   dragElement(newBox);
+  if (isMobile()) newBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
   linkBoxActive = true;
 }
@@ -197,6 +198,7 @@ function createThoughtsBox() {
   mainContainer.appendChild(newBox);
 
   dragElement(newBox);
+  if (isMobile()) newBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
   thoughtsBoxActive = true;
 }
@@ -246,6 +248,7 @@ function createGalleryBox() {
   mainContainer.appendChild(newBox);
 
   dragElement(newBox);
+  if (isMobile()) newBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
   galleryBoxActive = true;
 }
@@ -297,6 +300,7 @@ function createTodoBox() {
   mainContainer.appendChild(newBox);
 
   dragElement(newBox);
+  if (isMobile()) newBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
   todoBoxActive = true;
 }

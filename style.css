@@ -457,6 +457,21 @@ input[type="range"]::-moz-range-thumb {
 
 @media screen and (max-width: 768px) {
 
+  /* Fix background flickering on mobile — fixed pseudo-element stays locked to viewport */
+  body {
+    background-image: none;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url(src/windows_xp_original-wallpaper-3840x2160.jpg);
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+  }
+
   /* Centered flex column — boxes float on the background with space on both sides */
   .main {
     margin-left: 0;
@@ -472,6 +487,7 @@ input[type="range"]::-moz-range-thumb {
     position: relative !important;
     top: auto !important;
     left: auto !important;
+    overflow: visible;
     transform: none !important;
     width: calc(100% - 48px);
     max-width: 300px;
