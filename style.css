@@ -145,6 +145,12 @@ body {
   cursor: text;
 }
 
+/* LISTS IN BOXES */
+.box .body ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+
 /* MENU & LINKS */
 menu {
   display: block;

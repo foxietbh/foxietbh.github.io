@@ -407,12 +407,12 @@ function playTrack(index) {
     playPromise
       .then(() => {
         isPlaying = true;
-        playBtn.textContent = "⏸";
+        playBtn.textContent = "⏸\uFE0E";
       })
       .catch((error) => {
         console.log("Autoplay prevented:", error);
         isPlaying = false;
-        playBtn.textContent = "▶";
+        playBtn.textContent = "▶\uFE0E";
       });
   }
 }
@@ -421,14 +421,14 @@ function playTrack(index) {
 function togglePlay() {
   if (isPlaying) {
     audio.pause();
-    playBtn.textContent = "▶";
+    playBtn.textContent = "▶\uFE0E";
     isPlaying = false;
   } else {
     const playPromise = audio.play();
     if (playPromise !== undefined) {
       playPromise
         .then(() => {
-          playBtn.textContent = "⏸";
+          playBtn.textContent = "⏸\uFE0E";
           isPlaying = true;
         })
         .catch((error) => {
@@ -442,7 +442,7 @@ function togglePlay() {
 function stopTrack() {
   audio.pause();
   audio.currentTime = 0;
-  playBtn.textContent = "▶";
+  playBtn.textContent = "▶\uFE0E";
   isPlaying = false;
   seek.value = 0;
   currentTime.textContent = "0:00";
@@ -564,12 +564,12 @@ audio.addEventListener("error", (e) => {
 // Handle play/pause events
 audio.addEventListener("play", () => {
   isPlaying = true;
-  playBtn.textContent = "⏸";
+  playBtn.textContent = "⏸\uFE0E";
 });
 
 audio.addEventListener("pause", () => {
   isPlaying = false;
-  playBtn.textContent = "▶";
+  playBtn.textContent = "▶\uFE0E";
 });
 
 // Auto-start with user interaction (to handle autoplay policies)

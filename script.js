@@ -3,6 +3,7 @@ let boxCounter = 0;
 let linkBoxActive = false;
 let galleryBoxActive = false;
 let thoughtsBoxActive = false;
+let todoBoxActive = false;
 
 // ------------------ MOBILE DETECTION ------------------
 
@@ -249,6 +250,57 @@ function createGalleryBox() {
   galleryBoxActive = true;
 }
 
+// ------------------ CREATE TODO BOX ------------------
+
+function createTodoBox() {
+  if (todoBoxActive) return;
+
+  const mainContainer = document.querySelector(".main");
+  const newBox = document.createElement("div");
+  newBox.className = "box";
+  newBox.id = "todoBox" + ++boxCounter;
+
+  const titleDiv = document.createElement("div");
+  titleDiv.className = "title";
+  titleDiv.id = newBox.id + "Header";
+
+  const titleP = document.createElement("p");
+  titleP.className = "title";
+  titleP.textContent = "To Do";
+
+  const closeBtn = document.createElement("button");
+  closeBtn.textContent = "X";
+  closeBtn.onclick = () => {
+    newBox.remove();
+    todoBoxActive = false;
+  };
+
+  const helpBtn = document.createElement("button");
+  helpBtn.textContent = "?";
+
+  titleDiv.append(titleP, closeBtn, helpBtn);
+
+  const bodyDiv = document.createElement("div");
+  bodyDiv.className = "body";
+
+  const list = document.createElement("ul");
+  list.innerHTML = `
+    <li>implement gallery</li>
+    <li>implement blog-like "thoughts"</li>
+    <li>rewrite bio...</li>
+    <li>turn menu into desktop icons/taskbar</li>
+  `;
+  bodyDiv.appendChild(list);
+
+  newBox.append(titleDiv, bodyDiv);
+  newBox.style.zIndex = boxCounter;
+  mainContainer.appendChild(newBox);
+
+  dragElement(newBox);
+
+  todoBoxActive = true;
+}
+
 // ------------------ REMOVE ELEMENT ------------------
 
 function removeElmnt(id) {
@@ -264,6 +316,7 @@ window.removeElmnt = removeElmnt;
 document.getElementById('thoughtsBtn').addEventListener('click', createThoughtsBox);
 document.getElementById('galleryBtn').addEventListener('click', createGalleryBox);
 document.getElementById('linksBtn').addEventListener('click', createLinksBox);
+document.getElementById('todoBtn').addEventListener('click', createTodoBox);
 
 // ------------------ INITIALIZE DRAG ON EXISTING BOXES ------------------
 
