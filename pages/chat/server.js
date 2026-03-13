@@ -94,6 +94,7 @@ function initChat(user) {
   sendBtn.onclick = async () => {
     const text = msgInput.value.trim();
     if (!text) return;
+    if (text.length > 500) return alert("Message too long (max 500 chars)");
     try {
       await addDoc(collection(db, "messages"), {
         user,

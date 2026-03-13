@@ -1,6 +1,5 @@
 const GlobalLateralOffset = 30;
 let boxCounter = 0;
-let chatBoxActive = false;
 let linkBoxActive = false;
 let galleryBoxActive = false;
 let thoughtsBoxActive = false;
@@ -101,10 +100,7 @@ function dragElement(elmnt) {
 
 function createLinksBox() {
   // Check if already active
-  if (linkBoxActive) {
-    console.log("Links box already open");
-    return;
-  }
+  if (linkBoxActive) return;
 
   const mainContainer = document.querySelector(".main");
   const newBox = document.createElement("div");
@@ -153,18 +149,13 @@ function createLinksBox() {
   dragElement(newBox);
 
   linkBoxActive = true;
-
-  console.log("Created new Links/Socials box with ID:", newBox.id);
 }
 
 // ------------------ CREATE THOUGHTS BOX ------------------
 
 function createThoughtsBox() {
   // Check if already active
-  if (thoughtsBoxActive) {
-    console.log("Thoughts box already open");
-    return;
-  }
+  if (thoughtsBoxActive) return;
 
   const mainContainer = document.querySelector(".main");
   const newBox = document.createElement("div");
@@ -207,18 +198,13 @@ function createThoughtsBox() {
   dragElement(newBox);
 
   thoughtsBoxActive = true;
-
-  console.log("Created new Thoughts box with ID:", newBox.id);
 }
 
 // ------------------ CREATE GALLERY BOX ------------------
 
 function createGalleryBox() {
   // Check if already active
-  if (galleryBoxActive) {
-    console.log("Gallery box already open");
-    return;
-  }
+  if (galleryBoxActive) return;
 
   const mainContainer = document.querySelector(".main");
   const newBox = document.createElement("div");
@@ -261,8 +247,6 @@ function createGalleryBox() {
   dragElement(newBox);
 
   galleryBoxActive = true;
-
-  console.log("Created new Gallery box with ID:", newBox.id);
 }
 
 // ------------------ REMOVE ELEMENT ------------------
