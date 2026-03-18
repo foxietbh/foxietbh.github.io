@@ -6,6 +6,7 @@ import {
   query,
   orderBy,
   onSnapshot,
+  serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 import {
@@ -99,7 +100,7 @@ function initChat(user) {
       await addDoc(collection(db, "messages"), {
         user,
         text,
-        ts: Date.now(),
+        ts: serverTimestamp(),
       });
       msgInput.value = "";
     } catch (err) {
